@@ -90,7 +90,7 @@ public class Blue_Left extends LinearOpMode {
     DcMotor leftBack;
     DcMotor rightFront;
     DcMotor rightBack;
-    //Servo graber;
+    Servo graber;
     Servo wrist;
     DcMotorEx arm;
 
@@ -100,14 +100,14 @@ public class Blue_Left extends LinearOpMode {
     public static int fin = 0;
 
     private final double ticksEnGrado = 700/180.0;
-    //private DcMotorEx arm;
 
-    //Servo ss;
+
+    Servo ss;
 
     public static double graberClosed = 1.0;
     public static double graberOpen = 0.85;
     public static double ssArriba = 0.0;
-    public static double ssAbajo = 0.25;
+    public static double ssAbajo = 0.50;
 
     public static double wristGrab = 1.0;
     public static double wristDrop = 0.70;
@@ -143,13 +143,14 @@ public class Blue_Left extends LinearOpMode {
         //arm.setPower(0);
         target = 0;
 
-        //graber = hardwareMap.servo.get("graber");
-        //ss = hardwareMap.servo.get("ss");
+        graber = hardwareMap.servo.get("graber");
+        ss = hardwareMap.servo.get("ss");
         wrist = hardwareMap.servo.get("wrist");
 
         pos = 0;
         mov = false;
         wrist.setPosition(wristGrab);
+        ss.setPosition(ssArriba);
 
 
         initTfod();

@@ -47,9 +47,9 @@ public class ArmAuto extends LinearOpMode {
 
         graber = hardwareMap.servo.get("graber");
         wrist = hardwareMap.servo.get("wrist");
-        graber.setPosition(graberOpen);
+        graber.setPosition(graberClosed);
         sleep(300);
-        wrist.setPosition(wristDrop);
+        wrist.setPosition(wristGrab);
 
         target = 0;
 
@@ -67,48 +67,48 @@ public class ArmAuto extends LinearOpMode {
                 double pid = controller.calculate(armPos, target);
                 double ff = Math.cos(Math.toRadians(target / ticksEnGrado)) * f;
                 double power = pid + ff;
-
+                //graber.setPosition(graberClosed);
                 arm.setPower(power);
 
-/*
-                if (target >= 600 && regreso == 0 && espera.milliseconds() > 5000){
-
+               /* if (target >= 600 && regreso == 0 && espera.milliseconds() > 5000){
                     regreso = 1;
                 }
                 else if (target <= 0 && regreso == 1)
                 {
                     //sleep(2000);
-
                     regreso = 0;
                 }*/
-                while (target < 600 && tiempo.milliseconds() > 50 && regreso == 0) {
+
+                while (target < 700 && tiempo.milliseconds() > 50 && regreso == 0) {
+                    wrist.setPosition(wristDrop);
                     p=0.005;
                     i=0.005;
                     d=1E-10;
                     f=0.005;
                     target += 10;
-                    if ( target < 600)
+                    if (target<700)
                         tiempo.reset();
-                    if (target >= 600) {
-                        wrist.setPosition(wristDrop);
+                    else{
                         espera.reset();
-                        while(fin ==0){
-                            if (espera.milliseconds()>5000)
-                                fin =1;
-                                regreso = 1;
+                        while (espera.seconds() < 4){
+                            graber.setPosition(graberOpen);
+                            regreso=1;
                         }
+                        tiempo.reset();
                     }
                 }
 
-
-
                 while (target > 0 && tiempo.milliseconds() > 50 && regreso == 1) {
+                    graber.setPosition(graberOpen);
                     p=0.005;
                     i=0.005;
                     d=1E-10;
                     f=0.005;
                     target -= 20;
                     tiempo.reset();
+                    if (target <= 0 && regreso == 1){
+                        break;
+                    }
                 }
             }
 

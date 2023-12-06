@@ -60,7 +60,7 @@ public class TeleOpCenterstage extends LinearOpMode {
     ElapsedTime bump2 = new ElapsedTime();
 
     public static double ssArriba = 0.0;
-    public static double ssAbajo = 0.25;
+    public static double ssAbajo = 0.50;
 
 
     @Override
