@@ -199,7 +199,7 @@ public class Blue_Left extends LinearOpMode {
                     if (pos == 1){ //Left marker
                         telemetry.update();
                         resetEncoders();
-                        strLeftPos(0.3,400);
+                        strLeftPos(0.3,420);
                         sleep(1000);
                         resetEncoders();
                         frontPos(0.4, 1050);
@@ -216,7 +216,7 @@ public class Blue_Left extends LinearOpMode {
                         turnRightPos(0.3, 720);
                         sleep(2000);
                         resetEncoders();
-                        backPos(-0.3, 700);
+                        backPos(-0.3, 720);
                         sleep(3000);
                         while(termina != 1){
                             controller.setPID(p, i, d);
