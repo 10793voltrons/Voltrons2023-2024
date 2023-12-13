@@ -133,6 +133,7 @@ public class Blue_Left extends LinearOpMode {
         rightFront = hardwareMap.dcMotor.get("fr");
         leftBack = hardwareMap.dcMotor.get("bl");
         rightBack = hardwareMap.dcMotor.get("br");
+
         controller = new PIDController(p,i,d);
 
         rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -220,7 +221,7 @@ public class Blue_Left extends LinearOpMode {
                         sleep(1700);
                         resetEncoders();
                         //le subo 0.1 al power y le quito 1000 a los milisegundos
-                        backPos(-0.4, 720);
+                        backPos(-0.4, 705);
                         sleep(2000);
                         while(termina != 1){
                             controller.setPID(p, i, d);
@@ -261,7 +262,7 @@ public class Blue_Left extends LinearOpMode {
                                     while (espera.seconds() < 1){
                                         resetEncoders();
                                         strRightPos(0.4, 800);
-                                        sleep(200);
+                                        sleep(1000);
                                         regreso = 1;
                                         robotStop();
                                     }
@@ -297,7 +298,7 @@ public class Blue_Left extends LinearOpMode {
                         turnRightPos(0.3,720);
                         sleep(2000);
                         resetEncoders();
-                        backPos(0.5, 1380);
+                        backPos(0.5, 1365);
                         sleep(3000);
                         while(termina != 1){
                             controller.setPID(p, i, d);
@@ -354,7 +355,7 @@ public class Blue_Left extends LinearOpMode {
                     {
                         telemetry.update();
                         resetEncoders();
-                        frontPos(.3, 1570);
+                        frontPos(.3, 1575);
                         sleep(3000);
                         resetEncoders();
                         //le baje 10 al turn right

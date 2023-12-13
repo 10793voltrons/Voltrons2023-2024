@@ -23,7 +23,7 @@ public class TeleOpCenterstage extends LinearOpMode {
     DcMotor leftBack;
     DcMotor rightBack;
     DcMotorEx arm;
-    DcMotorEx lift;
+    DcMotor avion;
 
     Servo graber;
     Servo SFloor;
@@ -71,6 +71,8 @@ public class TeleOpCenterstage extends LinearOpMode {
         rightFront = hardwareMap.dcMotor.get("fr");
         leftBack = hardwareMap.dcMotor.get("bl");
         rightBack = hardwareMap.dcMotor.get("br");
+        avion = hardwareMap.dcMotor.get("avion");
+
 
         controller = new PIDController(p,i,d);
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
@@ -186,6 +188,13 @@ public class TeleOpCenterstage extends LinearOpMode {
             if (gamepad1.right_bumper && rbump1.milliseconds() > 300)
             {
                 SFloor.setPosition(ssAbajo);
+            }
+
+            if (gamepad1.right_trigger > 0){
+                avion.setPower(1);
+            }
+            else {
+                avion.setPower(0);
             }
 
             /** PLAYER 2 **/
