@@ -64,13 +64,14 @@ public class Blue_Left extends LinearOpMode {
 
     // TFOD_MODEL_ASSET points to a model file stored in the project Asset location,
     // this is only used for Android Studio when using models in Assets.
-    private static final String TFOD_MODEL_ASSET = "10793Models.tflite";
+    //CAMBIAMOS EL NOMBRE DEL MODELO
+    private static final String TFOD_MODEL_ASSET = "BluePropV32023.tflite";
     // TFOD_MODEL_FILE points to a model file stored onboard the Robot Controller's storage,
     // this is used when uploading models directly to the RC using the model upload interface.
     //private static final String TFOD_MODEL_FILE = "/sdcard/FIRST/tflitemodels/myCustomModel.tflite";
     // Define the labels recognized in the model for TFOD (must be in training order!)
     private static final String[] LABELS = {
-       "beacon",
+       "BlueProp",
     };
 
     /**
@@ -211,13 +212,16 @@ public class Blue_Left extends LinearOpMode {
                         fin = 1;
                         resetEncoders();
                         backPos(0.3, 100);
-                        sleep(1000);
+                        //le quito 200 al delay
+                        sleep(800);
                         resetEncoders();
                         turnRightPos(0.3, 720);
-                        sleep(2000);
+                        //le quito 300 al delay
+                        sleep(1700);
                         resetEncoders();
-                        backPos(-0.3, 720);
-                        sleep(3000);
+                        //le subo 0.1 al power y le quito 1000 a los milisegundos
+                        backPos(-0.4, 720);
+                        sleep(2000);
                         while(termina != 1){
                             controller.setPID(p, i, d);
                             int armPos = arm.getCurrentPosition();
@@ -236,7 +240,7 @@ public class Blue_Left extends LinearOpMode {
                                     tiempo.reset();
                                 else{
                                     espera.reset();
-                                    while (espera.seconds() < 3){
+                                    while (espera.seconds() < 1){
                                         graber.setPosition(graberOpen);
                                         regreso = 1;
                                     }
@@ -254,10 +258,10 @@ public class Blue_Left extends LinearOpMode {
                                     tiempo.reset();
                                 else{
                                     espera.reset();
-                                    while (espera.seconds() < 2){
+                                    while (espera.seconds() < 1){
                                         resetEncoders();
-                                        strRightPos(0.3, 800);
-                                        sleep(2);
+                                        strRightPos(0.4, 800);
+                                        sleep(200);
                                         regreso = 1;
                                         robotStop();
                                     }
@@ -353,7 +357,8 @@ public class Blue_Left extends LinearOpMode {
                         frontPos(.3, 1570);
                         sleep(3000);
                         resetEncoders();
-                        turnRightPos(0.3,760);
+                        //le baje 10 al turn right
+                        turnRightPos(0.3,750);
                         sleep(2000);
                         resetEncoders();
                         frontPos(0.2,550);
@@ -404,8 +409,19 @@ public class Blue_Left extends LinearOpMode {
                                 d=1E-10;
                                 f=0.005;
                                 target -= 20;
-                                tiempo.reset();
-                                /*if (target <= 0 && regreso == 1){
+                                //puse para que se moviera al backstage de la izquierda
+                                if (target>0)
+                                    tiempo.reset();
+                                else{
+                                    espera.reset();
+                                    while (espera.seconds() < 1.4){
+                                        resetEncoders();
+                                        strRightPos(0.4, 1600);
+                                        sleep(1400);
+                                        regreso = 1;
+                                    }
+                                    tiempo.reset();
+                                }/*if (target <= 0 && regreso == 1){
                                     //termina = 1;
                                     break;
                                 }*/
@@ -502,8 +518,6 @@ public class Blue_Left extends LinearOpMode {
 
         resetEncoders();
         List<Recognition> currentRecognitions = tfod.getRecognitions();
-
-
         telemetry.addData("# Objects Detected", currentRecognitions.size());
 
         if (currentRecognitions.size() == 0 && mov == false) {
@@ -517,7 +531,6 @@ public class Blue_Left extends LinearOpMode {
             if (currentRecognitions.size() == 0 && mov == true)
             {
                 pos = 3;
-
             }
             if (currentRecognitions.size() == 1 && mov == true)
             {

@@ -63,13 +63,14 @@ public class Red_Right extends LinearOpMode {
 
     // TFOD_MODEL_ASSET points to a model file stored in the project Asset location,
     // this is only used for Android Studio when using models in Assets.
-    private static final String TFOD_MODEL_ASSET = "10793Models.tflite";
+    //CAMBIAMOS EL NOMBRE DEL BEACON
+    private static final String TFOD_MODEL_ASSET = "PinkProp.tflite";
     // TFOD_MODEL_FILE points to a model file stored onboard the Robot Controller's storage,
     // this is used when uploading models directly to the RC using the model upload interface.
     //private static final String TFOD_MODEL_FILE = "/sdcard/FIRST/tflitemodels/myCustomModel.tflite";
     // Define the labels recognized in the model for TFOD (must be in training order!)
     private static final String[] LABELS = {
-       "beacon",
+       "PinkProp",
     };
 
     /**
@@ -399,7 +400,18 @@ public class Red_Right extends LinearOpMode {
                                 d=1E-10;
                                 f=0.005;
                                 target -= 20;
-                                tiempo.reset();
+                                if (target>0)
+                                    tiempo.reset();
+                                else{
+                                    espera.reset();
+                                    while (espera.seconds() < 1.4){
+                                        resetEncoders();
+                                        strRightPos(0.4, 1600);
+                                        sleep(1400);
+                                        regreso = 1;
+                                    }
+                                    tiempo.reset();
+                                }
                                 /*if (target <= 0 && regreso == 1){
                                     //termina = 1;
                                     break;

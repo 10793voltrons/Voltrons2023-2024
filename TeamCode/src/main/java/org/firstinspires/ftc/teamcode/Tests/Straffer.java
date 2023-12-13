@@ -11,8 +11,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name = "TeleOpCenterstage", group = "Auto")
-public class TeleOpCenterstage extends LinearOpMode {
+@TeleOp(name = "Straffer", group = "Auto")
+public class Straffer extends LinearOpMode {
 
     // Primero declaramos todas las variables que vamos a usar
     // ( Motores, servos y temporizadores)
@@ -22,11 +22,10 @@ public class TeleOpCenterstage extends LinearOpMode {
 
     DcMotor leftBack;
     DcMotor rightBack;
-    DcMotorEx arm;
     DcMotorEx lift;
 
     Servo graber;
-    Servo SFloor;
+
     Servo wrist;
 
     private PIDController controller;
@@ -75,11 +74,9 @@ public class TeleOpCenterstage extends LinearOpMode {
         controller = new PIDController(p,i,d);
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
-        arm = hardwareMap.get(DcMotorEx.class, "arm");
-        arm.setDirection(DcMotorEx.Direction.REVERSE);
+
         //arm.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         //arm.setDirection(DcMotorEx.Direction.REVERSE);
-        arm.setPower(0);
         xButton.reset(); //reiniciar temporizador
         DRight.reset();
         DLeft.reset();
@@ -90,7 +87,7 @@ public class TeleOpCenterstage extends LinearOpMode {
 
 
         graber = hardwareMap.servo.get("graber");
-        SFloor = hardwareMap.servo.get("ss");
+
         wrist = hardwareMap.servo.get("wrist");
 
 
@@ -141,24 +138,7 @@ public class TeleOpCenterstage extends LinearOpMode {
             /*if (target > 280)
                 target = 280;*/
 
-            controller.setPID(p,i,d);
-            int armPos = arm.getCurrentPosition();
-            double pid = controller.calculate(armPos, target);
-            double ff = Math.cos(Math.toRadians(target/ticksEnGrado))*f;
-            double power = pid+ff;
 
-
-            arm.setPower(power);
-
-            // Slow Mode
-            if (gamepad1.a && aButton.milliseconds() > 300) {
-                if (adjust == 10) {
-                    adjust = 4;
-                } else {
-                    adjust = 10;
-                }
-                aButton.reset();
-            }
 
             // Invert Mode
             if (gamepad1.y && yButton.milliseconds() > 500) {
@@ -178,15 +158,8 @@ public class TeleOpCenterstage extends LinearOpMode {
                 yButton.reset();
             }
 
-            if(gamepad1.left_bumper && lbump1.milliseconds() > 300)
-            {
-                SFloor.setPosition(ssArriba);
-            }
 
-            if (gamepad1.right_bumper && rbump1.milliseconds() > 300)
-            {
-                SFloor.setPosition(ssAbajo);
-            }
+
 
             /** PLAYER 2 **/
             if (gamepad2.x && xButton.milliseconds() > 300) {
@@ -201,10 +174,10 @@ public class TeleOpCenterstage extends LinearOpMode {
                 }
             }
 /**
-            if (gamepad2.y && yButton.milliseconds() > 300) {
-                graber.setPosition(graberOpen);
-                yButton.reset();
-                }*/
+ if (gamepad2.y && yButton.milliseconds() > 300) {
+ graber.setPosition(graberOpen);
+ yButton.reset();
+ }*/
 
             /*if(gamepad2.dpad_right && DRight.milliseconds()>300 )
             {
@@ -262,7 +235,6 @@ public class TeleOpCenterstage extends LinearOpMode {
 
             telemetry.addData("Invert", invert);
             telemetry.addData("Grabber", graber.getPosition());
-            telemetry.addData("Arm position", arm.getCurrentPosition());
             telemetry.addData("target", target);
             telemetry.addData("Slow Mode", adjust == 4);
             telemetry.addData("Wrist position:", wrist.getPosition());
@@ -273,33 +245,8 @@ public class TeleOpCenterstage extends LinearOpMode {
 
 
 
-    public void resetArm()
-    {
-        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-    }
 
-    public void runWEncoders()
-    {
-        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    }
 
-    public void armGotoPos(int pos)
-    {
-        runWEncoders();
-        arm.setTargetPosition(pos);
-        armPos();
-        arm.setPower(0.3);
-    }
-
-    public void armStop()
-    {
-        arm.setPower(0);
-    }
-
-    public void armPos()
-    {
-        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    }
 
 
 }

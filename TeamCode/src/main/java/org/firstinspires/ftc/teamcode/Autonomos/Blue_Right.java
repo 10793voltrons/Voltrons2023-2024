@@ -62,7 +62,7 @@ public class Blue_Right extends LinearOpMode {
 
     // TFOD_MODEL_ASSET points to a model file stored in the project Asset location,
     // this is only used for Android Studio when using models in Assets.
-    private static final String TFOD_MODEL_ASSET = "10793Models.tflite";
+    private static final String TFOD_MODEL_ASSET = "BluePropV32023.tflite";
     // TFOD_MODEL_FILE points to a model file stored onboard the Robot Controller's storage,
     // this is used when uploading models directly to the RC using the model upload interface.
     //private static final String TFOD_MODEL_FILE = "/sdcard/FIRST/tflitemodels/myCustomModel.tflite";
@@ -350,7 +350,6 @@ public class Blue_Right extends LinearOpMode {
         resetEncoders();
         List<Recognition> currentRecognitions = tfod.getRecognitions();
         telemetry.addData("# Objects Detected", currentRecognitions.size());
-
 
         if (currentRecognitions.size() == 0 && mov == false) {
             strRightPos(0.2, 400);
