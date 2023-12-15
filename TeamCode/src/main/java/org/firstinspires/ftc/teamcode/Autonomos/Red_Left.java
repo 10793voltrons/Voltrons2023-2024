@@ -62,7 +62,7 @@ public class Red_Left extends LinearOpMode {
 
     // TFOD_MODEL_ASSET points to a model file stored in the project Asset location,
     // this is only used for Android Studio when using models in Assets.
-    private static final String TFOD_MODEL_ASSET = "10793Models.tflite";
+    private static final String TFOD_MODEL_ASSET = "model_20231214_122603.tflite";
     // TFOD_MODEL_FILE points to a model file stored onboard the Robot Controller's storage,
     // this is used when uploading models directly to the RC using the model upload interface.
     //private static final String TFOD_MODEL_FILE = "/sdcard/FIRST/tflitemodels/myCustomModel.tflite";
@@ -203,7 +203,7 @@ public class Red_Left extends LinearOpMode {
                         telemetry.update();
                         /**Movieminto inicial del robot**/
                         resetEncoders();
-                        frontPos(0.4,1400);    //AQUI CAMBIO*************
+                        frontPos(0.4,1310);    //AQUI CAMBIO*************
                         sleep(3000);
                         /** mover el servo del pixel **/
                         wrist.setPosition(wristDrop);
@@ -218,13 +218,13 @@ public class Red_Left extends LinearOpMode {
                     {
                         telemetry.update();
                         resetEncoders();
-                        frontPos(.3, 1100);
+                        frontPos(.3, 1370);
                         sleep(3000);
                         resetEncoders();
                         turnRightPos(0.3,760);
                         sleep(2000);
                         resetEncoders();
-                        frontPos(0.2,600);
+                        frontPos(0.3,500);
                         sleep(2000);
                         resetEncoders();
                         /** mover el servo del pixel **/

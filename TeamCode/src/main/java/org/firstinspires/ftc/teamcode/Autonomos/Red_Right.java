@@ -64,7 +64,7 @@ public class Red_Right extends LinearOpMode {
     // TFOD_MODEL_ASSET points to a model file stored in the project Asset location,
     // this is only used for Android Studio when using models in Assets.
     //CAMBIAMOS EL NOMBRE DEL BEACON
-    private static final String TFOD_MODEL_ASSET = "PinkProp.tflite";
+    private static final String TFOD_MODEL_ASSET = "model_20231214_122603.tflite";
     // TFOD_MODEL_FILE points to a model file stored onboard the Robot Controller's storage,
     // this is used when uploading models directly to the RC using the model upload interface.
     //private static final String TFOD_MODEL_FILE = "/sdcard/FIRST/tflitemodels/myCustomModel.tflite";
@@ -206,7 +206,7 @@ public class Red_Right extends LinearOpMode {
                         sleep(1000);
                         fin = 1;
                         resetEncoders();
-                        backPos(0.4, 300);
+                        backPos(0.3, 300);
                         sleep(1000);
                         resetEncoders();
                         strRightPos(0.4,930);
@@ -218,7 +218,7 @@ public class Red_Right extends LinearOpMode {
                         turnLeftPos(0.3, 820);
                         sleep(3000);
                         resetEncoders();
-                        backPos(-0.3, 320);
+                        backPos(-0.3, 340);
                         sleep(3000);
                         while(termina != 1){
                             controller.setPID(p, i, d);
@@ -258,8 +258,8 @@ public class Red_Right extends LinearOpMode {
                                     espera.reset();
                                     while (espera.seconds() < 1){
                                         resetEncoders();
-                                        strRightPos(0.4, 600);
-                                        sleep(1000);
+                                        strLeftPos(0.4, 1400);
+                                        sleep(1600);
                                         regreso = 1;
                                     }
                                     tiempo.reset();
@@ -298,7 +298,7 @@ public class Red_Right extends LinearOpMode {
                         turnLeftPos(0.3,790);
                         sleep(2000);
                         resetEncoders();
-                        backPos(-0.5, 1600);
+                        backPos(-0.3, 1650);
                         sleep(3000);
                         while(termina != 1){
                             controller.setPID(p, i, d);
@@ -332,7 +332,18 @@ public class Red_Right extends LinearOpMode {
                                 d=1E-10;
                                 f=0.005;
                                 target -= 20;
-                                tiempo.reset();
+                                if (target>0)
+                                    tiempo.reset();
+                                else{
+                                    espera.reset();
+                                    while (espera.seconds() < 1.4){
+                                        resetEncoders();
+                                        strLeftPos(0.4, 1600);
+                                        sleep(1400);
+                                        regreso = 1;
+                                    }
+                                    tiempo.reset();
+                                }
                                 /*if (target <= 0 && regreso == 1){
                                     //termina = 1;
                                     break;
@@ -363,10 +374,10 @@ public class Red_Right extends LinearOpMode {
                         sleep(1000);
                         //fin = 1;
                         resetEncoders();
-                        backPos(-0.5, 1650);
+                        backPos(-0.3, 1650);
                         sleep(3000);
                         resetEncoders();
-                        strLeftPos(0.2, 180);
+                        strLeftPos(0.2, 190);
                         sleep(1000);
                         while(termina != 1){
                             controller.setPID(p, i, d);
@@ -406,7 +417,7 @@ public class Red_Right extends LinearOpMode {
                                     espera.reset();
                                     while (espera.seconds() < 1.4){
                                         resetEncoders();
-                                        strRightPos(0.4, 1600);
+                                        strLeftPos(0.4, 1600);
                                         sleep(1400);
                                         regreso = 1;
                                     }

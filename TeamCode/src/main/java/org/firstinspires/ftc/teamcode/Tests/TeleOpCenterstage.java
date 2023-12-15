@@ -11,6 +11,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import java.util.function.DoubleUnaryOperator;
+
 @TeleOp(name = "TeleOpCenterstage", group = "Auto")
 public class TeleOpCenterstage extends LinearOpMode {
 
@@ -28,6 +30,7 @@ public class TeleOpCenterstage extends LinearOpMode {
     Servo graber;
     Servo SFloor;
     Servo wrist;
+    Servo lanzador;
 
     private PIDController controller;
 
@@ -58,9 +61,15 @@ public class TeleOpCenterstage extends LinearOpMode {
     ElapsedTime lbump1 = new ElapsedTime();
     ElapsedTime rbump1 = new ElapsedTime();
     ElapsedTime bump2 = new ElapsedTime();
+    ElapsedTime dpad_up = new ElapsedTime();
+
 
     public static double ssArriba = 0.0;
     public static double ssAbajo = 0.50;
+
+    public static double lanzador1 = 0.0;
+    public static double lanzador2 = 1.50;
+
 
 
     @Override
@@ -94,6 +103,7 @@ public class TeleOpCenterstage extends LinearOpMode {
         graber = hardwareMap.servo.get("graber");
         SFloor = hardwareMap.servo.get("ss");
         wrist = hardwareMap.servo.get("wrist");
+        lanzador = hardwareMap.servo.get("lanzador");
 
 
         // Invertimos los motores de fabrica
@@ -114,6 +124,7 @@ public class TeleOpCenterstage extends LinearOpMode {
         bButton.reset();
         armDelay.reset();
         bump2.reset();
+        dpad_up.reset();
 
         double invert = 1;
         double adjust = 10;
@@ -121,6 +132,7 @@ public class TeleOpCenterstage extends LinearOpMode {
         int veces=0;
         int gAbierto = 0;
         int wAbierto = 0;
+        int lanzado = 0;
 
         wrist.setPosition(wristGrab);
         //double position_goal = arm.getCurrentPosition();
@@ -191,7 +203,7 @@ public class TeleOpCenterstage extends LinearOpMode {
             }
 
             if (gamepad1.right_trigger > 0){
-                avion.setPower(1);
+                avion.setPower(0.6);
             }
             else {
                 avion.setPower(0);
@@ -207,6 +219,17 @@ public class TeleOpCenterstage extends LinearOpMode {
                     graber.setPosition(graberOpen);
                     xButton.reset();
                     gAbierto = 1;
+                }
+            }
+            if (gamepad2.dpad_up && dpad_up.milliseconds() > 300) {
+                if (lanzado == 0) {
+                    lanzador.setPosition(lanzador2);
+                    dpad_up.reset();
+                    lanzado = 1;
+                } else {
+                    lanzador.setPosition(lanzador1);
+                    dpad_up.reset();
+                    lanzado = 0;
                 }
             }
 /**

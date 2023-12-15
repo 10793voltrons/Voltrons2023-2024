@@ -205,7 +205,7 @@ public class Blue_Right extends LinearOpMode {
                         telemetry.update();
                         /**Movieminto inicial del robot**/
                         resetEncoders();
-                        frontPos(0.4,1400);    //AQUI CAMBIO*************
+                        frontPos(0.4,1300);    //AQUI CAMBIO*************
                         sleep(3000);
                         /** mover el servo del pixel **/
                         //ss.setPosition(ssAbajo);
@@ -227,7 +227,7 @@ public class Blue_Right extends LinearOpMode {
                         turnLeftPos(0.3,760);
                         sleep(2000);
                         resetEncoders();
-                        frontPos(0.2,550);
+                        frontPos(0.2,505);
                         sleep(1500);
                         resetEncoders();
                         /** mover el servo del pixel **/

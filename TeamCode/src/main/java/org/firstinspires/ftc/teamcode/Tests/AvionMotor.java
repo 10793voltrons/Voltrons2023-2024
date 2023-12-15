@@ -23,7 +23,7 @@ public class AvionMotor extends LinearOpMode {
         waitForStart();
         while (opModeIsActive()) {
             if (gamepad1.right_trigger > 0){
-                avion.setPower(1);
+                avion.setPower(2);
             }
             else {
                 avion.setPower(0);
