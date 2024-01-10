@@ -43,7 +43,7 @@ public class TeleOpCenterstageV2 extends LinearOpMode {
     boolean open = false;
 
     public static double graberClosed = 1;
-    public static double graberOpen = 0.85;
+    public static double graberOpen = 0.7;
 
     public static double wristGrab = 1.0;
     public static double wristDrop = 0.70;
@@ -234,11 +234,11 @@ public class TeleOpCenterstageV2 extends LinearOpMode {
             }
 
             if (gamepad2.b && bButton.milliseconds() > 300 && estaArriba == 1) {
-                SFloor.setPosition(ssAbajo);
+                SFloor.setPosition(graberClosed);
                 estaArriba = 0;
             }
             else if (gamepad2.b && bButton.milliseconds() > 300 && estaArriba == 0) {
-                SFloor.setPosition(ssArriba);
+                SFloor.setPosition(graberOpen);
                 estaArriba = 1;
             }
 
