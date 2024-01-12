@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.Tests;
 
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
+
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.controller.PIDController;
@@ -42,13 +45,17 @@ public class TeleOpCenterstageV2 extends LinearOpMode {
 
     boolean open = false;
 
+    public static double ssArriba = 0.0;
+    public static double ssAbajo = 0.75;
+
     public static double graberClosed = 1;
-    public static double graberOpen = 0.7;
+    public static double graberOpen = 0.75;
 
     public static double wristGrab = 1.0;
     public static double wristDrop = 0.70;
-    public static double linearSlidePowerMultiplier = 0.5;
+    public static double linearSlidePowerMultiplier = 0.575;
     public static int estaArriba = 1;
+    public static boolean colgado = FALSE;
 
     ElapsedTime aButton = new ElapsedTime();
     ElapsedTime bButton = new ElapsedTime();
@@ -64,8 +71,7 @@ public class TeleOpCenterstageV2 extends LinearOpMode {
     ElapsedTime dpad_up = new ElapsedTime();
 
 
-    public static double ssArriba = 0.0;
-    public static double ssAbajo = 0.50;
+
 
     public static double lanzador1 = 0.0;
     public static double lanzador2 = 1.50;
@@ -133,6 +139,7 @@ public class TeleOpCenterstageV2 extends LinearOpMode {
         int gAbierto = 0;
         int wAbierto = 0;
         int lanzado = 0;
+        int yabierto = 0;
 
         wrist.setPosition(wristGrab);
         //double position_goal = arm.getCurrentPosition();
@@ -221,6 +228,19 @@ public class TeleOpCenterstageV2 extends LinearOpMode {
                     gAbierto = 1;
                 }
             }
+            if (gamepad2.y && yButton.milliseconds() > 300) {
+                if (yabierto==1){
+                    graber.setPosition(graberOpen);
+                    SFloor.setPosition(ssAbajo);
+                    yButton.reset();
+                    yabierto = 0;
+                }else{
+                    graber.setPosition(graberClosed);
+                    SFloor.setPosition(ssArriba);
+                    yButton.reset();
+                    yabierto = 1;
+                }
+            }
             if (gamepad2.dpad_up && dpad_up.milliseconds() > 300) {
                 if (lanzado == 0) {
                     lanzador.setPosition(lanzador2);
@@ -264,6 +284,17 @@ public class TeleOpCenterstageV2 extends LinearOpMode {
                     bump2.reset();
                     wAbierto = 1;
                 }
+            }
+
+            if (gamepad2.left_bumper && lBump.milliseconds() > 300){
+                if (!colgado){
+                    arm.setPower(0.6);
+                    colgado = TRUE;
+                } else {
+                    arm.setPower(0);
+                    colgado = FALSE;
+                }
+
             }
 
             telemetry.addData("Invert", invert);
