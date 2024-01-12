@@ -45,11 +45,10 @@ public class TeleOpCenterstageV2 extends LinearOpMode {
 
     boolean open = false;
 
-    public static double ssArriba = 0.0;
-    public static double ssAbajo = 0.75;
-
-    public static double graberClosed = 1;
+    public static double graberClosed = .95;
     public static double graberOpen = 0.75;
+    public static double ssArriba = 1.0;
+    public static double ssAbajo = 0.75;
 
     public static double wristGrab = 1.0;
     public static double wristDrop = 0.70;
@@ -231,12 +230,12 @@ public class TeleOpCenterstageV2 extends LinearOpMode {
             if (gamepad2.y && yButton.milliseconds() > 300) {
                 if (yabierto==1){
                     graber.setPosition(graberOpen);
-                    SFloor.setPosition(ssAbajo);
+                    SFloor.setPosition(ssArriba);
                     yButton.reset();
                     yabierto = 0;
                 }else{
                     graber.setPosition(graberClosed);
-                    SFloor.setPosition(ssArriba);
+                    SFloor.setPosition(ssAbajo);
                     yButton.reset();
                     yabierto = 1;
                 }

@@ -33,7 +33,6 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -57,9 +56,8 @@ import java.util.List;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list.
  */
-@Autonomous(name = "Red Right")
-@Disabled
-public class Red_Right extends LinearOpMode {
+@Autonomous(name = "Red Right V2")
+public class Red_Right_V2 extends LinearOpMode {
 
     private static final boolean USE_WEBCAM = true;  // true for webcam, false for phone camera
 
@@ -107,10 +105,10 @@ public class Red_Right extends LinearOpMode {
 
     Servo ss;
 
-    public static double graberClosed = 1.0;
-    public static double graberOpen = 0.85;
-    public static double ssArriba = 0.0;
-    public static double ssAbajo = 0.50;
+    public static double graberClosed = .95;
+    public static double graberOpen = 0.75;
+    public static double ssArriba = 1.0;
+    public static double ssAbajo = 0.75;
 
     public static double wristGrab = 1.0;
     public static double wristDrop = 0.70;
@@ -158,8 +156,10 @@ public class Red_Right extends LinearOpMode {
 
         pos = 0;
         mov = false;
+        /**POSICIONES INIOIALES SERVOS**/
         wrist.setPosition(wristGrab);
         ss.setPosition(ssAbajo);
+        graber.setPosition(graberClosed);
 
 
         initTfod();
@@ -194,88 +194,48 @@ public class Red_Right extends LinearOpMode {
 
                 if (pos != 0)
                 {
-                    if (pos == 1){ //Left marker
+                    if (pos == 1){ //Right marker
                         telemetry.update();
                         resetEncoders();
-                        strLeftPos(0.3, 310);
                         sleep(1000);
                         resetEncoders();
-                        frontPos(0.4, 850);
-                        sleep(3000);
+                        frontPos(0.4, 1250);
+                        sleep(3500);
                         /** mover el servo del pixel **/
                         ss.setPosition(ssArriba);
-                        graber.setPosition(graberClosed);
                         sleep(1000);
                         fin = 1;
                         resetEncoders();
-                        backPos(0.3, 300);
+                        backPos(0.3, 420);
+                        //le quito 200 al delay
+                        sleep(1200);
+                        resetEncoders();
+                        turnRightPos(0.6, 1100);
+                        //le quito 300 al delay
+                        sleep(1700);
+                        resetEncoders();
+                        //le subo 0.1 al power y le quito 1000 a los milisegundos
+                        resetEncoders();
+                        strLeftPos(0.4, 800);
+                        sleep(1700);
+                        resetEncoders();
+                        frontPos(-0.5, 1100);
+                        sleep(2000);
+                        wrist.setPosition(wristDrop);
                         sleep(1000);
                         resetEncoders();
-                        strRightPos(0.4,930);
-                        sleep(2000);
+                        frontPos(0.5, 235);
+                        sleep(1500);
+                        graber.setPosition(graberOpen);
+                        sleep(500);
                         resetEncoders();
-                        frontPos(0.4, 1100);
-                        sleep(2500);
+                        backPos(0.5, 200);
+                        sleep(1500);
+                        wrist.setPosition(wristGrab);
                         resetEncoders();
-                        turnLeftPos(0.3, 820);
-                        sleep(3000);
-                        resetEncoders();
-                        backPos(-0.3, 340);
-                        sleep(3000);
-                        while(termina != 1){
-                            controller.setPID(p, i, d);
-                            double armPos = arm.getCurrentPosition();
-                            double pid = controller.calculate(armPos, target);
-                            double ff = Math.cos(Math.toRadians(target / ticksEnGrado)) * f;
-                            double power = pid + ff;
-                            arm.setPower(power);
-                            while (target < 700 && tiempo.milliseconds() > 50 && regreso == 0) {
-                                wrist.setPosition(wristDrop);
-                                p=0.005;
-                                i=0.005;
-                                d=1E-10;
-                                f=0.005;
-                                target += 20;
-                                if (target<700)
-                                    tiempo.reset();
-                                else{
-                                    espera.reset();
-                                    while (espera.seconds() < 3){
-                                        graber.setPosition(graberOpen);
-                                        regreso = 1;
-                                    }
-                                    tiempo.reset();
-                                }
-                            }
-                            while (target > 0 && tiempo.milliseconds() > 50 && regreso == 1) {
-                                graber.setPosition(graberOpen);
-                                p=0.005;
-                                i=0.005;
-                                d=1E-10;
-                                f=0.005;
-                                target -= 20;
-                                if (target>0)
-                                    tiempo.reset();
-                                else{
-                                    espera.reset();
-                                    while (espera.seconds() < 1){
-                                        resetEncoders();
-                                        strLeftPos(0.4, 1400);
-                                        sleep(1600);
-                                        regreso = 1;
-                                    }
-                                    tiempo.reset();
-                                }
-                                //tiempo.reset();
-                                /*if (target <= 0 && regreso == 1){
-                                    //termina = 1;
-                                    break;
-                                }*/
-                                //wrist.setPosition(wristGrab);
-                                graber.setPosition(graberOpen);
-                                robotStop();
-                            }
-                        }
+                        strRightPos(0.6, 950);
+                        sleep(1000);
+
                         break;
                     }
                     if (pos == 2)  //Center marker
@@ -357,83 +317,49 @@ public class Red_Right extends LinearOpMode {
                         }
                         break;
                     }
-                    if (pos == 3)  //Right Marker
+                    if (pos == 3)  //Left Marker
                     {
                         telemetry.update();
                         resetEncoders();
-                        frontPos(.3, 1100);
-                        sleep(3000);
-                        resetEncoders();
-                        turnLeftPos(0.3,770);
+                        frontPos(.5, 1250);
                         sleep(2000);
                         resetEncoders();
-                        frontPos(0.2,530);
-                        sleep(1500);
+                        //le baje 10 al turn right
+                        turnLeftPos(0.5,1050);
+                        sleep(3000);
+                        resetEncoders();
+                        frontPos(0.5,800);
+                        sleep(1000);
                         resetEncoders();
                         /** mover el servo del pixel **/
                         ss.setPosition(ssArriba);
-                        graber.setPosition(graberClosed);
+                        //graber.setPosition(graberClosed);
+                        //wrist.setPosition(wristDrop);
                         sleep(1000);
-                        //fin = 1;
+                        fin = 1;
                         resetEncoders();
-                        backPos(-0.3, 1650);
+                        backPos(-0.5, 1590);
                         sleep(3000);
                         resetEncoders();
-                        strLeftPos(0.2, 190);
+                        turnLeftPos(0.5,2200);
+                        sleep(2500);
+                        resetEncoders();
+                        strRightPos(0.5,200);
+                        sleep(800);
+                        wrist.setPosition(wristDrop);
                         sleep(1000);
-                        while(termina != 1){
-                            controller.setPID(p, i, d);
-                            double armPos = arm.getCurrentPosition();
-                            double pid = controller.calculate(armPos, target);
-                            double ff = Math.cos(Math.toRadians(target / ticksEnGrado)) * f;
-                            double power = pid + ff;
-                            arm.setPower(power);
-                            while (target < 700 && tiempo.milliseconds() > 50 && regreso == 0) {
-                                wrist.setPosition(wristDrop);
-                                p=0.005;
-                                i=0.005;
-                                d=1E-10;
-                                f=0.005;
-                                target += 20;
-                                if (target<700)
-                                    tiempo.reset();
-                                else{
-                                    espera.reset();
-                                    while (espera.seconds() < 3){
-                                        graber.setPosition(graberOpen);
-                                        regreso = 1;
-                                    }
-                                    tiempo.reset();
-                                }
-                            }
-                            while (target > 0 && tiempo.milliseconds() > 50 && regreso == 1) {
-                                graber.setPosition(graberOpen);
-                                p=0.005;
-                                i=0.005;
-                                d=1E-10;
-                                f=0.005;
-                                target -= 20;
-                                if (target>0)
-                                    tiempo.reset();
-                                else{
-                                    espera.reset();
-                                    while (espera.seconds() < 1.4){
-                                        resetEncoders();
-                                        strLeftPos(0.4, 1600);
-                                        sleep(1400);
-                                        regreso = 1;
-                                    }
-                                    tiempo.reset();
-                                }
-                                /*if (target <= 0 && regreso == 1){
-                                    //termina = 1;
-                                    break;
-                                }*/
-                                //wrist.setPosition(wristGrab);
-                                graber.setPosition(graberOpen);
-                                robotStop();
-                            }
-                        }
+                        resetEncoders();
+                        frontPos(0.5, 360);
+                        sleep(1500);
+                        graber.setPosition(graberOpen);
+                        sleep(500);
+                        resetEncoders();
+                        wrist.setPosition(wristGrab);
+                        backPos(0.5, 200);
+                        sleep(1000);
+                        resetEncoders();
+                        strLeftPos(0.7, 1550);
+                        sleep(2000);
                         break;
                     }
                 }else{
@@ -551,8 +477,8 @@ public class Red_Right extends LinearOpMode {
 
 
         if (currentRecognitions.size() == 0 && mov == false) {
-            strRightPos(0.2, 400);
-            sleep(1500);
+            strRightPos(0.4, 700);
+            sleep(1200);
             resetEncoders();
             telemetry.update();
             mov = true;
