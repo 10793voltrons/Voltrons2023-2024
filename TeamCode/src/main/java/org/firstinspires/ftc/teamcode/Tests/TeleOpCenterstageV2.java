@@ -73,7 +73,7 @@ public class TeleOpCenterstageV2 extends LinearOpMode {
 
 
     public static double lanzador1 = 0.0;
-    public static double lanzador2 = 1.50;
+    public static double lanzador2 = 0.85;
 
 
 
@@ -209,7 +209,7 @@ public class TeleOpCenterstageV2 extends LinearOpMode {
             }*/
 
             if (gamepad1.right_trigger > 0){
-                avion.setPower(0.6);
+                avion.setPower(0.7);
             }
             else {
                 avion.setPower(0);
