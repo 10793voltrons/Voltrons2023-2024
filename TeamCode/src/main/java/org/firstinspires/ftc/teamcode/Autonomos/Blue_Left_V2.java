@@ -212,7 +212,7 @@ public class Blue_Left_V2 extends LinearOpMode {
                             //strLeftPos(0.3, 280);
                             //sleep(1000);
                             resetEncoders();
-                            frontPos(0.4,1450);    //AQUI CAMBIO*************
+                            frontPos(0.4,1425);    //AQUI CAMBIO*************
                             sleep(3000);
                             /** mover el servo del pixel **/
                             //wrist.setPosition(wristDrop);
@@ -232,7 +232,7 @@ public class Blue_Left_V2 extends LinearOpMode {
                             wrist.setPosition(wristDrop);
                             sleep(1000);
                             resetEncoders();
-                            frontPos(0.5, 245);
+                            frontPos(0.5, 265);
                             sleep(1500);
                             graber.setPosition(graberOpen);
                             sleep(500);
@@ -306,7 +306,7 @@ public class Blue_Left_V2 extends LinearOpMode {
                             turnRightPos(0.4,1050);
                             sleep(2000);
                             resetEncoders();
-                            frontPos(0.5,600);
+                            frontPos(0.5,590);
                             sleep(1000);
                             resetEncoders();
                             /** mover el servo del pixel **/
@@ -319,7 +319,7 @@ public class Blue_Left_V2 extends LinearOpMode {
                             backPos(-0.5, 1590);
                             sleep(3000);
                             resetEncoders();
-                            turnLeftPos(0.5,2200);
+                            turnLeftPos(0.5,2250);
                             sleep(2500);
                             resetEncoders();
                             strRightPos(0.5,200);

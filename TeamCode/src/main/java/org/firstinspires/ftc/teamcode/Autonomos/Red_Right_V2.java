@@ -176,6 +176,7 @@ public class Red_Right_V2 extends LinearOpMode {
                 //frontPos(0.2, 400);
                 //sleep(2000);
 
+
                 telemetryTfod();
 
                 // Push telemetry to the Driver Station.
@@ -201,6 +202,10 @@ public class Red_Right_V2 extends LinearOpMode {
                         resetEncoders();
                         frontPos(0.4, 1250);
                         sleep(3500);
+                        resetEncoders();
+                        strLeftPos(0.5,100);
+                        sleep(1000);
+                        resetEncoders();
                         /** mover el servo del pixel **/
                         ss.setPosition(ssArriba);
                         sleep(1000);
@@ -210,13 +215,17 @@ public class Red_Right_V2 extends LinearOpMode {
                         //le quito 200 al delay
                         sleep(1200);
                         resetEncoders();
-                        turnRightPos(0.6, 1100);
+                        turnRightPos(0.6, 1050);
                         //le quito 300 al delay
                         sleep(1700);
                         resetEncoders();
                         //le subo 0.1 al power y le quito 1000 a los milisegundos
                         frontPos(-0.5, 1100);
                         sleep(2000);
+                        resetEncoders();
+                        strLeftPos(0.4,350);
+                        sleep(1000);
+                        resetEncoders();
                         wrist.setPosition(wristDrop);
                         sleep(1000);
                         resetEncoders();
@@ -254,20 +263,29 @@ public class Red_Right_V2 extends LinearOpMode {
                         resetEncoders();
                         frontPos(0.5, 1465);
                         sleep(3000);
+                        resetEncoders();
+                        strLeftPos(0.5,250);
+                        sleep(1000);
+                        resetEncoders();
                         wrist.setPosition(wristDrop);
                         sleep(1000);
                         resetEncoders();
                         frontPos(0.5, 245);
                         sleep(1500);
+                        resetEncoders();
                         graber.setPosition(graberOpen);
                         sleep(500);
                         resetEncoders();
                         backPos(0.5, 200);
                         sleep(1500);
+                        resetEncoders();
                         wrist.setPosition(wristGrab);
                         resetEncoders();
                         strRightPos(0.7, 1200);
                         sleep(1000);
+                        resetEncoders();
+                        frontPos(0.5, 245);
+                        sleep(1500);
                         break;
                     }
                     if (pos == 3)  /**Left Marker**/
@@ -281,7 +299,7 @@ public class Red_Right_V2 extends LinearOpMode {
                         turnLeftPos(0.4,1050);
                         sleep(2000);
                         resetEncoders();
-                        frontPos(0.5,600);
+                        frontPos(0.5,750);
                         sleep(1000);
                         resetEncoders();
                         /** mover el servo del pixel **/
@@ -296,13 +314,14 @@ public class Red_Right_V2 extends LinearOpMode {
                         turnRightPos(0.5,2200);
                         sleep(2500);
                         resetEncoders();
-                        strLeftPos(0.5,200);
+                        strLeftPos(0.5,350);
                         sleep(800);
                         wrist.setPosition(wristDrop);
                         sleep(1000);
                         resetEncoders();
                         frontPos(0.5, 360);
                         sleep(1500);
+                        resetEncoders();
                         graber.setPosition(graberOpen);
                         sleep(500);
                         resetEncoders();
@@ -312,6 +331,10 @@ public class Red_Right_V2 extends LinearOpMode {
                         resetEncoders();
                         strRightPos(0.7, 1550);
                         sleep(2000);
+                        resetEncoders();
+                        frontPos(0.5,750);
+                        sleep(1000);
+                        resetEncoders();
                         break;
                     }
                 }else{
@@ -405,7 +428,7 @@ public class Red_Right_V2 extends LinearOpMode {
 
         if (currentRecognitions.size() == 0 && mov == false) {
             strRightPos(0.4, 700);
-            sleep(1500);
+            sleep(3000);
             resetEncoders();
             telemetry.update();
             mov = true;

@@ -52,7 +52,7 @@ public class TeleOpCenterstageV2 extends LinearOpMode {
 
     public static double wristGrab = 1.0;
     public static double wristDrop = 0.70;
-    public static double linearSlidePowerMultiplier = 0.575;
+    public static double linearSlidePowerMultiplier = 0.6;
     public static int estaArriba = 1;
     public static boolean colgado = FALSE;
 
@@ -314,8 +314,7 @@ public class TeleOpCenterstageV2 extends LinearOpMode {
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
-    public void runWEncoders()
-    {
+    public void runWEncoders() {
         arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 

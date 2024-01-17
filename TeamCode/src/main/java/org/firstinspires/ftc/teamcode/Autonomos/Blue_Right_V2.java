@@ -103,10 +103,11 @@ public class Blue_Right_V2 extends LinearOpMode {
 
     Servo ss;
 
-    public static double graberClosed = 1.0;
+    public static double graberClosed = .95;
     public static double graberOpen = 0.75;
-    public static double ssArriba = 0.0;
+    public static double ssArriba = 1.0;
     public static double ssAbajo = 0.75;
+
 
     public static double wristGrab = 1.0;
     public static double wristDrop = 0.70;
@@ -149,6 +150,8 @@ public class Blue_Right_V2 extends LinearOpMode {
         pos = 0;
         mov = false;
         wrist.setPosition(wristGrab);
+        ss.setPosition(ssAbajo);
+        graber.setPosition(graberClosed);
 
 
         initTfod();
@@ -179,62 +182,74 @@ public class Blue_Right_V2 extends LinearOpMode {
                 double ff = Math.cos(Math.toRadians(target/ticksEnGrado))*f;
                 double power = pid+ff;
 
+                wrist.setPosition(wristGrab);
+                ss.setPosition(ssAbajo);
+                graber.setPosition(graberClosed);
 
+
+                graber = hardwareMap.servo.get("graber");
+                ss = hardwareMap.servo.get("ss");
+                wrist = hardwareMap.servo.get("wrist");
 
                 if (pos != 0)
                 {
                     if (pos == 1){ //Left marker
                         telemetry.update();
                         resetEncoders();
-                        //strRightPos(0.2,100);
-                        //sleep(1000);
-                        //resetEncoders();
-                        frontPos(0.4, 850);
-                        sleep(3000);
+                        frontPos(.5, 1250);
+                        sleep(2000);
+                        resetEncoders();
+                        //le baje 10 al turn right
+                        turnLeftPos(0.4,1050);
+                        sleep(2000);
+                        resetEncoders();
+                        frontPos(0.5,600);
+                        sleep(1000);
+                        resetEncoders();
                         /** mover el servo del pixel **/
-
+                        ss.setPosition(ssArriba);
+                        graber.setPosition(graberClosed);
                         sleep(1000);
                         fin = 1;
                         resetEncoders();
-                        backPos(0.3, 300);
+                        backPos(0.5, 200);
                         sleep(1000);
+                        resetEncoders();
                         break;
                     }
                     if (pos == 2)  //Center marker
                     {
                         telemetry.update();
-                        /**Movieminto inicial del robot**/
                         resetEncoders();
-                        frontPos(0.4,1300);    //AQUI CAMBIO*************
+                        frontPos(0.4,1400);    //AQUI CAMBIO*************
                         sleep(3000);
                         /** mover el servo del pixel **/
-                        //ss.setPosition(ssAbajo);
-                        wrist.setPosition(wristDrop);
+                        //wrist.setPosition(wristDrop);
+                        graber.setPosition(graberOpen);
                         sleep(1000);
                         fin = 1;
                         resetEncoders();
-                        backPos(-0.3, 300);
-                        sleep(700);
+                        backPos(0.3, 300);
+                        sleep(1000);
+                        resetEncoders();
                         break;
                     }
                     if (pos == 3)  //Right Marker
                     {
                         telemetry.update();
                         resetEncoders();
-                        frontPos(.3, 1100);
-                        sleep(3000);
-                        resetEncoders();
-                        turnLeftPos(0.3,760);
-                        sleep(2000);
-                        resetEncoders();
-                        frontPos(0.2,505);
-                        sleep(1500);
-                        resetEncoders();
-                        /** mover el servo del pixel **/
-                        //ss.setPosition(ssAbajo);
-                        wrist.setPosition(wristDrop);
                         sleep(1000);
-                        //fin = 1;
+                        resetEncoders();
+                        frontPos(0.4, 1250);
+                        sleep(3500);
+                        /** mover el servo del pixel **/
+                        ss.setPosition(ssArriba);
+                        sleep(1000);
+                        fin = 1;
+                        resetEncoders();
+                        backPos(0.3, 420);
+                        //le quito 200 al delay
+                        sleep(1200);
                         resetEncoders();
                         break;
                     }

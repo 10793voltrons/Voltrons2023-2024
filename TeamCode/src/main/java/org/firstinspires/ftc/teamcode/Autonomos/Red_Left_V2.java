@@ -89,7 +89,7 @@ public class Red_Left_V2 extends LinearOpMode {
     DcMotor leftBack;
     DcMotor rightFront;
     DcMotor rightBack;
-    //Servo graber;
+    Servo graber;
     Servo wrist;
     DcMotorEx arm;
 
@@ -103,13 +103,15 @@ public class Red_Left_V2 extends LinearOpMode {
 
     //Servo ss;
 
-    public static double graberClosed = 1.0;
-    public static double graberOpen = 0.85;
-    public static double ssArriba = 0.0;
-    public static double ssAbajo = 0.25;
+    public static double graberClosed = .95;
+    public static double graberOpen = 0.75;
+    public static double ssArriba = 1.0;
+    public static double ssAbajo = 0.75;
 
     public static double wristGrab = 1.0;
     public static double wristDrop = 0.70;
+
+    Servo ss;
 
     private PIDController controller;
 
@@ -142,14 +144,15 @@ public class Red_Left_V2 extends LinearOpMode {
         //arm.setPower(0);
         target = 0;
 
-        //graber = hardwareMap.servo.get("graber");
-        //ss = hardwareMap.servo.get("ss");
+        graber = hardwareMap.servo.get("graber");
+        ss = hardwareMap.servo.get("ss");
         wrist = hardwareMap.servo.get("wrist");
 
         pos = 0;
         mov = false;
         wrist.setPosition(wristGrab);
-
+        ss.setPosition(ssAbajo);
+        graber.setPosition(graberClosed);
 
         initTfod();
 
@@ -173,71 +176,96 @@ public class Red_Left_V2 extends LinearOpMode {
                 telemetry.addData("target = %i", target);
                 telemetry.update();
 
+
+
+
                 controller.setPID(p,i,d);
                 int armPos = arm.getCurrentPosition();
                 double pid = controller.calculate(armPos, target);
                 double ff = Math.cos(Math.toRadians(target/ticksEnGrado))*f;
                 double power = pid+ff;
 
+                graber = hardwareMap.servo.get("graber");
+                ss = hardwareMap.servo.get("ss");
+                wrist = hardwareMap.servo.get("wrist");
+
                 if (pos != 0)
                 {
                     if (pos == 1){ //Left marker
                         telemetry.update();
                         resetEncoders();
-                        strLeftPos(0.2,200);
-                        sleep(1000);
+                        frontPos(.5, 1200);
+                        sleep(2000);
                         resetEncoders();
-                        frontPos(0.4, 850);
-                        sleep(3000);
+                        //le baje 10 al turn right
                         /** mover el servo del pixel **/
-                        wrist.setPosition(wristDrop);
+                        ss.setPosition(ssArriba);
+                        graber.setPosition(graberClosed);
                         sleep(1000);
                         fin = 1;
                         resetEncoders();
-                        backPos(0.3, 300);
+                        backPos(0.5, 200);
                         sleep(1000);
+                        resetEncoders();
                         break;
                     }
                     if (pos == 2)  //Center marker
                     {
                         telemetry.update();
-                        /**Movieminto inicial del robot**/
                         resetEncoders();
-                        frontPos(0.4,1310);    //AQUI CAMBIO*************
+                        frontPos(0.4,1350);    //AQUI CAMBIO*************
                         sleep(3000);
                         /** mover el servo del pixel **/
-                        wrist.setPosition(wristDrop);
+                        //wrist.setPosition(wristDrop);
+                        ss.setPosition(ssArriba);
+                        graber.setPosition(graberClosed);
                         sleep(1000);
                         fin = 1;
                         resetEncoders();
                         backPos(0.3, 300);
                         sleep(1000);
+                        resetEncoders();
                         break;
                     }
                     if (pos == 3)  //Right Marker
                     {
                         telemetry.update();
                         resetEncoders();
-                        frontPos(.3, 1370);
-                        sleep(3000);
-                        resetEncoders();
-                        turnRightPos(0.3,760);
+                        frontPos(.5, 1250);
                         sleep(2000);
                         resetEncoders();
-                        frontPos(0.3,500);
+                        //le baje 10 al turn right
+                        turnRightPos(0.4,1050);
                         sleep(2000);
+                        resetEncoders();
+                        frontPos(0.5,600);
+                        sleep(1000);
                         resetEncoders();
                         /** mover el servo del pixel **/
-                        wrist.setPosition(wristDrop);
+                        ss.setPosition(ssArriba);
+                        graber.setPosition(graberClosed);
+                        //wrist.setPosition(wristDrop);
                         sleep(1000);
                         fin = 1;
                         resetEncoders();
+                        backPos(-0.5, 1590);
+                        sleep(3000);
+                        resetEncoders();
+                        turnLeftPos(0.5,2200);
+                        sleep(2500);
+                        resetEncoders();
+                        strRightPos(0.5,200);
+                        sleep(800);
+                        wrist.setPosition(wristDrop);
+                        sleep(1000);
+                        resetEncoders();
+                        frontPos(0.5, 360);
+                        sleep(1500);
+                        graber.setPosition(graberOpen);
+                        sleep(500);
+                        resetEncoders();
                         break;
                     }
-
-
-
-
                 }else{
                     telemetryTfod();
                     telemetry.update();
@@ -345,8 +373,8 @@ public class Red_Left_V2 extends LinearOpMode {
         telemetry.addData("# Objects Detected", currentRecognitions.size());
 
         if (currentRecognitions.size() == 0 && mov == false) {
-            strLeftPos(0.2, 500);
-            sleep(1500);
+            strLeftPos(0.3, 500);
+            sleep(1050);
             resetEncoders();
             telemetry.update();
             mov = true;
