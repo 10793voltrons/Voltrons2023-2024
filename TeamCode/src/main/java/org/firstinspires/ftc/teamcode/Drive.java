@@ -1,4 +1,5 @@
 package org.firstinspires.ftc.teamcode;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.IMU;
 
 //import com.qualcomm.hardware.bosch.BNO055IMU;
@@ -7,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Imu;
 
+@Disabled
 public class Drive {
 
     DcMotor leftFront;

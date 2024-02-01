@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 //@Disabled
 @TeleOp(name = "NewMechanum", group = "TeleOp")
+@Disabled
 public class NewMechanum extends LinearOpMode {
     private Motor fl, fr, bl, br;
     private MecanumDrive mDrive;
