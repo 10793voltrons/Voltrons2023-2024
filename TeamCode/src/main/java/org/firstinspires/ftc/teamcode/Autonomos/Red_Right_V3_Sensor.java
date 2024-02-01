@@ -57,8 +57,8 @@ import java.util.List;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list.
  */
-@Autonomous(name = "Red Right V2")
-public class Red_Right_V2 extends LinearOpMode {
+@Autonomous(name = "Red_Right_V3_Sensor")
+public class Red_Right_V3_Sensor extends LinearOpMode {
 
     private static final boolean USE_WEBCAM = true;  // true for webcam, false for phone camera
 
@@ -71,7 +71,7 @@ public class Red_Right_V2 extends LinearOpMode {
     //private static final String TFOD_MODEL_FILE = "/sdcard/FIRST/tflitemodels/myCustomModel.tflite";
     // Define the labels recognized in the model for TFOD (must be in training order!)
     private static final String[] LABELS = {
-       "PinkProp",
+            "PinkProp",
     };
 
     /**
@@ -205,7 +205,7 @@ public class Red_Right_V2 extends LinearOpMode {
                         resetEncoders();
                         sleep(1000);
                         resetEncoders();
-                        frontPos(0.4, 1150);
+                        frontPos(0.4, 1050);
                         sleep(3500);
                         resetEncoders();
                         strLeftPos(0.3,50);
@@ -230,7 +230,7 @@ public class Red_Right_V2 extends LinearOpMode {
                         frontPos(-0.5, 850);
                         sleep(2000);
                         resetEncoders();
-                        strLeftPos(0.4,250);
+                        strLeftPos(0.4,350);
                         sleep(1000);
 
                         runSinEncoders();
@@ -239,37 +239,21 @@ public class Red_Right_V2 extends LinearOpMode {
                             idle();
                         }
                         robotStop();    /// a aquí se modificó
-                        sleep(1000);
+                        sleep(500);
                         graber.setPosition(graberOpen);
-                        sleep(1500);
-                        backPos(0.5, 150);
+                        sleep(1000);
+                        runWEncoders();
+                        resetEncoders();
+                        backPos(0.4, 150);
                         sleep(1000);
                         wrist.setPosition(wristGrab);
                         resetEncoders();
-                        strRightPos(0.6, 870);
+                        strRightPos(0.5, 920);
                         sleep(800);
-                        /**
                         resetEncoders();
-                        wrist.setPosition(wristDrop);
+                        frontPos(0.5, 300);
                         sleep(1000);
                         resetEncoders();
-                        frontPos(0.5, 260);
-                        sleep(1500);
-                        graber.setPosition(graberOpen);
-                        sleep(500);
-                        resetEncoders();
-                        backPos(0.5, 500);
-                        sleep(1500);
-                        wrist.setPosition(wristGrab);
-                        sleep(500);
-                        resetEncoders();
-                        strRightPos(0.6, 950);
-                        sleep(1000);
-                        resetEncoders();
-                        frontPos(0.5,500);
-                        sleep(1000);
-                        resetEncoders();
-                         **/
                         break;
                     }
                     if (pos == 2)  //Center marker
@@ -277,15 +261,12 @@ public class Red_Right_V2 extends LinearOpMode {
                         telemetry.update();
                         /**Movieminto inicial del robot**/
                         resetEncoders();
-                        //strLeftPos(0.3, 280);
-                        //sleep(1000);
                         strRightPos(0.4,100);
                         sleep(1000);
                         resetEncoders();
                         frontPos(0.4,1320);    //AQUI CAMBIO*************
                         sleep(2000);
                         /** mover el servo del pixel **/
-                        //wrist.setPosition(wristDrop);
                         ss.setPosition(ssArriba);
                         graber.setPosition(graberClosed);
                         sleep(1000);
@@ -295,15 +276,13 @@ public class Red_Right_V2 extends LinearOpMode {
                         sleep(1000);
                         resetEncoders();
                         turnRightPos(0.6,1050);
-                        sleep(2000);
+                        wrist.setPosition(wristDrop);
+                        sleep(1000);
                         resetEncoders();
                         frontPos(0.5, 1200);
                         sleep(1500);
                         resetEncoders();
-                        strLeftPos(0.4,300);
-                        sleep(1000);
-                        resetEncoders();
-                        wrist.setPosition(wristDrop);
+                        strLeftPos(0.4,500);
                         sleep(1000);
                         resetEncoders();
 
@@ -314,10 +293,6 @@ public class Red_Right_V2 extends LinearOpMode {
                         }
                         robotStop();    /// a aquí se modificó
                         sleep(1000);
-                        /**
-                        frontPos(0.4, 370);
-                        sleep(1000);
-                        resetEncoders();**/
                         graber.setPosition(graberOpen);
                         sleep(500);
                         runWEncoders();
@@ -343,39 +318,44 @@ public class Red_Right_V2 extends LinearOpMode {
                         frontPos(.5, 1250);
                         sleep(2000);
                         resetEncoders();
-                        //le baje 10 al turn right
                         turnLeftPos(0.5,1100);
                         sleep(3000);
                         resetEncoders();
-                        frontPos(0.5,800);
+                        frontPos(0.5,700);
                         sleep(1000);
                         resetEncoders();
                         /** mover el servo del pixel **/
                         ss.setPosition(ssArriba);
-                        //graber.setPosition(graberClosed);
-                        //wrist.setPosition(wristDrop);
                         sleep(1000);
-                        fin = 1;
                         resetEncoders();
                         backPos(-0.5, 1590);
                         sleep(3000);
+                        wrist.setPosition(wristDrop);
                         resetEncoders();
                         turnLeftPos(0.5,2200);
                         sleep(2500);
                         resetEncoders();
-                        strLeftPos(0.6,610);
+                        strLeftPos(0.6,510);
                         sleep(800);
                         wrist.setPosition(wristDrop);
                         sleep(1000);
                         resetEncoders();
-                        frontPos(0.5, 230);
-                        sleep(1500);
+
+                        runSinEncoders();
+                        front(0.3);
+                        while(!Rtoch.isPressed() && !Ltoch.isPressed()){
+                            idle();
+                        }
+                        robotStop();    /// a aquí se modificó
+                        sleep(1000);
+
                         graber.setPosition(graberOpen);
                         sleep(500);
+                        runWEncoders();
                         resetEncoders();
-                        //wrist.setPosition(wristGrab);
                         backPos(0.6, 200);
                         sleep(1000);
+                        wrist.setPosition(wristGrab);
                         resetEncoders();
                         strRightPos(0.7, 1750);
                         sleep(2000);
@@ -391,28 +371,28 @@ public class Red_Right_V2 extends LinearOpMode {
 
                     /**if (target < 400){
 
-                        p=0.01;
-                        i=0.01;
-                        d=1E-10;
-                        f=0.01;
-                        target += 30;
+                     p=0.01;
+                     i=0.01;
+                     d=1E-10;
+                     f=0.01;
+                     target += 30;
 
-                        arm.setPower(power);
-                        //sleep(200);
-                        telemetry.update();
+                     arm.setPower(power);
+                     //sleep(200);
+                     telemetry.update();
 
-                    }*/
+                     }*/
                     sleep(500);
                 }
 
 
 
                 /** // Save CPU resources; can resume streaming when needed.
-                if (gamepad1.dpad_down) {
-                    visionPortal.stopStreaming();
-                } else if (gamepad1.dpad_up) {
-                    visionPortal.resumeStreaming();
-                }**/
+                 if (gamepad1.dpad_down) {
+                 visionPortal.stopStreaming();
+                 } else if (gamepad1.dpad_up) {
+                 visionPortal.resumeStreaming();
+                 }**/
 
                 // Share the CPU.
                 sleep(20);
@@ -432,23 +412,23 @@ public class Red_Right_V2 extends LinearOpMode {
         // Create the TensorFlow processor by using a builder.
         tfod = new TfodProcessor.Builder()
 
-            // With the following lines commented out, the default TfodProcessor Builder
-            // will load the default model for the season. To define a custom model to load, 
-            // choose one of the following:
-            //   Use setModelAssetName() if the custom TF Model is built in as an asset (AS only).
-            //   Use setModelFileName() if you have downloaded a custom team model to the Robot Controller.
-            .setModelAssetName(TFOD_MODEL_ASSET)
-            //.setModelFileName(TFOD_MODEL_FILE)
+                // With the following lines commented out, the default TfodProcessor Builder
+                // will load the default model for the season. To define a custom model to load,
+                // choose one of the following:
+                //   Use setModelAssetName() if the custom TF Model is built in as an asset (AS only).
+                //   Use setModelFileName() if you have downloaded a custom team model to the Robot Controller.
+                .setModelAssetName(TFOD_MODEL_ASSET)
+                //.setModelFileName(TFOD_MODEL_FILE)
 
-            // The following default settings are available to un-comment and edit as needed to 
-            // set parameters for custom models.
-            .setModelLabels(LABELS)
-            //.setIsModelTensorFlow2(true)
-            //.setIsModelQuantized(true)
-            //.setModelInputSize(300)
-            //.setModelAspectRatio(16.0 / 9.0)
+                // The following default settings are available to un-comment and edit as needed to
+                // set parameters for custom models.
+                .setModelLabels(LABELS)
+                //.setIsModelTensorFlow2(true)
+                //.setIsModelQuantized(true)
+                //.setModelInputSize(300)
+                //.setModelAspectRatio(16.0 / 9.0)
 
-            .build();
+                .build();
 
         // Create the vision portal by using a builder.
         VisionPortal.Builder builder = new VisionPortal.Builder();
@@ -461,7 +441,7 @@ public class Red_Right_V2 extends LinearOpMode {
         }
 
         // Choose a camera resolution. Not all cameras support all resolutions.
-       // builder.setCameraResolution(new Size(640, 480));
+        // builder.setCameraResolution(new Size(640, 480));
 
         // Enable the RC preview (LiveView).  Set "false" to omit camera monitoring.
         builder.enableLiveView(true);
@@ -488,9 +468,7 @@ public class Red_Right_V2 extends LinearOpMode {
 
     }   // end method initTfod()
 
-    /**
-     * Add telemetry about TensorFlow Object Detection (TFOD) recognitions.
-     */
+
     private void telemetryTfod() {
 
         resetEncoders();

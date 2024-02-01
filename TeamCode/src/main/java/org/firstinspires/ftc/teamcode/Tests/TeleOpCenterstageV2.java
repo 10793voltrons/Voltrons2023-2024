@@ -3,16 +3,19 @@ package org.firstinspires.ftc.teamcode.Tests;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
-import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+//import com.acmerobotics.dashboard.FtcDashboard;
+//import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.controller.PIDController;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
 
 @TeleOp(name = "Centerstage_V2")
 public class TeleOpCenterstageV2 extends LinearOpMode {
@@ -33,6 +36,8 @@ public class TeleOpCenterstageV2 extends LinearOpMode {
     Servo wrist;
     Servo lanzador;
 
+    //TouchSensor toch;
+
     private PIDController controller;
 
     /** Arm **/
@@ -46,9 +51,9 @@ public class TeleOpCenterstageV2 extends LinearOpMode {
     boolean open = false;
 
     public static double graberClosed = .95;
-    public static double graberOpen = 0.75;
-    public static double ssArriba = 1.0;
-    public static double ssAbajo = 0.75;
+        public static double graberOpen = 0.75;
+        public static double ssArriba = 1.0;
+        public static double ssAbajo = 0.75;
 
     public static double wristGrab = 1.0;
     public static double wristDrop = 0.70;
@@ -89,7 +94,9 @@ public class TeleOpCenterstageV2 extends LinearOpMode {
 
 
         controller = new PIDController(p,i,d);
-        telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
+       // telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
+
+        //toch = hardwareMap.get(TouchSensor.class, "toch2");
 
         arm = hardwareMap.get(DcMotorEx.class, "arm");
         arm.setDirection(DcMotorEx.Direction.REVERSE);
@@ -209,13 +216,14 @@ public class TeleOpCenterstageV2 extends LinearOpMode {
             }*/
 
             if (gamepad1.right_trigger > 0){
-                avion.setPower(0.7);
+                avion.setPower(0.675);
             }
             else {
                 avion.setPower(0);
             }
 
             /** PLAYER 2 **/
+
             if (gamepad2.x && xButton.milliseconds() > 300) {
                 if (gAbierto==1){
                     graber.setPosition(graberClosed);
@@ -261,6 +269,13 @@ public class TeleOpCenterstageV2 extends LinearOpMode {
                 estaArriba = 1;
             }
 
+            if(gamepad2.left_bumper){
+                while(opModeIsActive()){
+                    arm.setPower(-0.4);;
+                }
+            }
+
+
             if(gamepad2.right_trigger>0 /*&& DRight.milliseconds()>100*/ )
             {
                 arm.setPower(-linearSlidePowerMultiplier);
@@ -295,6 +310,7 @@ public class TeleOpCenterstageV2 extends LinearOpMode {
                 }
 
             }
+
 
             telemetry.addData("Invert", invert);
             telemetry.addData("Grabber", graber.getPosition());

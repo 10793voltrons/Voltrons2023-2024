@@ -193,7 +193,7 @@ public class Blue_Right_V2 extends LinearOpMode {
 
                 if (pos != 0)
                 {
-                    if (pos == 1){ //Left marker
+                    if (pos == 3){ //Left marker
                         telemetry.update();
                         resetEncoders();
                         frontPos(.5, 1250);
@@ -221,36 +221,46 @@ public class Blue_Right_V2 extends LinearOpMode {
                     {
                         telemetry.update();
                         resetEncoders();
-                        frontPos(0.4,1400);    //AQUI CAMBIO*************
+                        frontPos(0.4,1300);    //AQUI CAMBIO*************
                         sleep(3000);
                         /** mover el servo del pixel **/
                         //wrist.setPosition(wristDrop);
-                        graber.setPosition(graberOpen);
+                        ss.setPosition(ssArriba);
                         sleep(1000);
                         fin = 1;
                         resetEncoders();
                         backPos(0.3, 300);
                         sleep(1000);
                         resetEncoders();
+                        strRightPos(0.5, 800);
+                        sleep(1200);
+                        resetEncoders();
+                        frontPos(0.5, 1500);
+                        sleep(2500);
+                        resetEncoders();
+                        turnRightPos(0.4,1050);
+                        sleep(1500);
+                        resetEncoders();
+                        backPos(0.8, 5000);
+                        sleep(5500);
+                        resetEncoders();
+                        strRightPos(0.5, 300);
+                        sleep(1000);
+
                         break;
                     }
-                    if (pos == 3)  //Right Marker
+                    if (pos == 1)  //Right Marker
                     {
                         telemetry.update();
                         resetEncoders();
                         sleep(1000);
                         resetEncoders();
-                        frontPos(0.4, 1250);
+                        frontPos(0.4, 1070);
                         sleep(3500);
-                        /** mover el servo del pixel **/
+                        resetEncoders();
                         ss.setPosition(ssArriba);
                         sleep(1000);
                         fin = 1;
-                        resetEncoders();
-                        backPos(0.3, 420);
-                        //le quito 200 al delay
-                        sleep(1200);
-                        resetEncoders();
                         break;
                     }
                 }else{
@@ -367,7 +377,7 @@ public class Blue_Right_V2 extends LinearOpMode {
         telemetry.addData("# Objects Detected", currentRecognitions.size());
 
         if (currentRecognitions.size() == 0 && mov == false) {
-            strRightPos(0.2, 400);
+            strRightPos(0.4, 540);
             sleep(1500);
             resetEncoders();
             telemetry.update();

@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Autonomos;
 
+import android.text.method.Touch;
+
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.controller.PIDController;
@@ -10,6 +12,8 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.TouchSensor;
+
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -20,8 +24,8 @@ import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
 import java.util.List;
 
-@Autonomous(name = "Blue Left_V2")
-public class Blue_Left_V2 extends LinearOpMode {
+@Autonomous(name = "Blue Left_V3_Sensor")
+public class Blue_Left_V3_Sensor extends LinearOpMode {
 
         private static final boolean USE_WEBCAM = true;  // true for webcam, false for phone camera
 
@@ -59,6 +63,8 @@ public class Blue_Left_V2 extends LinearOpMode {
         Servo wrist;
         DcMotorEx arm;
 
+        TouchSensor Rtoch, Ltoch;
+
         public static double p=0, i=0, d=0;
         public static double f=0;
         public static int target = 0;
@@ -68,7 +74,6 @@ public class Blue_Left_V2 extends LinearOpMode {
 
 
         Servo ss;
-       // Servo graber;
 
         public static double graberClosed = .95;
         public static double graberOpen = 0.75;
@@ -109,10 +114,11 @@ public class Blue_Left_V2 extends LinearOpMode {
             rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
             //controller = new PIDController(p,i,d);
-            telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
+            //telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
             arm = hardwareMap.get(DcMotorEx.class, "arm");
- //           arm.setDirection(DcMotorEx.Direction.REVERSE);
+            Rtoch = hardwareMap.get(TouchSensor.class, "toch"); //           arm.setDirection(DcMotorEx.Direction.REVERSE);
+            Ltoch = hardwareMap.get(TouchSensor.class, "toch2");
             //arm.setPower(0);
             target = 0;
             termina =0;
@@ -160,47 +166,57 @@ public class Blue_Left_V2 extends LinearOpMode {
                 double ff = Math.cos(Math.toRadians(target/ticksEnGrado))*f;
                 double power = pid+ff;*/
 
-                    ss.setPosition(ssAbajo);
+                   // ss.setPosition(ssAbajo);
 
                     if (pos != 0)
                     {
                         if (pos == 1){ //Left marker
                             telemetry.update();
                             resetEncoders();
-                            sleep(1000);
-                            resetEncoders();
-                            frontPos(0.4, 1250);
-                            sleep(3500);
+                            frontPos(0.4, 1000);
+                            sleep(2000);
                             /** mover el servo del pixel **/
                             ss.setPosition(ssArriba);
-                            sleep(1000);
+                            sleep(500);
                             fin = 1;
                             resetEncoders();
-                            backPos(0.3, 420);
+                            backPos(0.5, 420);
                             //le quito 200 al delay
-                            sleep(1200);
+                            sleep(700);
                             resetEncoders();
+                            wrist.setPosition(wristDrop);
+                            sleep(500);
                             turnLeftPos(0.6, 1100);
                             //le quito 300 al delay
-                            sleep(1700);
+                            sleep(1200);
                             resetEncoders();
                             //le subo 0.1 al power y le quito 1000 a los milisegundos
                             frontPos(-0.5, 1100);
                             sleep(2000);
-                            wrist.setPosition(wristDrop);
-                            sleep(1000);
                             resetEncoders();
-                            frontPos(0.5, 235);
+                            strRightPos(0.3, 100);
+                            sleep(200);
+                            runSinEncoders();
+                            front(0.3);
+                            while(!Rtoch.isPressed()){
+                                idle();
+                            }
+                            robotStop();    /// a aquí se modificó
+                            sleep(1000);
+                            graber.setPosition(graberOpen);
+                            sleep(1500);
+                            backPos(0.5, 150);
+                            sleep(1000);
+                            wrist.setPosition(wristGrab);
+                            resetEncoders();
+                            strLeftPos(0.6, 870);
+                            sleep(800);
+                            /**frontPos(0.5, 235);
                             sleep(1500);
                             graber.setPosition(graberOpen);
                             sleep(500);
                             resetEncoders();
-                            backPos(0.5, 200);
-                            sleep(1500);
-                            wrist.setPosition(wristGrab);
-                            resetEncoders();
-                            strLeftPos(0.6, 950);
-                            sleep(1000);
+                            **/
 
                             break;
                         }
@@ -212,16 +228,18 @@ public class Blue_Left_V2 extends LinearOpMode {
                             //strLeftPos(0.3, 280);
                             //sleep(1000);
                             resetEncoders();
-                            frontPos(0.4,1200);    //AQUI CAMBIO*************
+                            frontPos(0.4,1300);    //AQUI CAMBIO*************
                             sleep(3000);
                             /** mover el servo del pixel **/
-                            //wrist.setPosition(wristDrop);
                             ss.setPosition(ssArriba);
-                            graber.setPosition(graberClosed);
-                            sleep(1000);
-                            fin = 1;
+                            sleep(500);
                             resetEncoders();
                             backPos(0.3, 300);
+                            sleep(1000);
+                            wrist.setPosition(wristDrop);
+                            graber.setPosition(graberClosed);
+                            sleep(1000);
+                            resetEncoders();
                             sleep(1000);
                             resetEncoders();
                             turnLeftPos(0.6,1100);
@@ -229,18 +247,22 @@ public class Blue_Left_V2 extends LinearOpMode {
                             resetEncoders();
                             frontPos(0.5, 1465);
                             sleep(3000);
-                            wrist.setPosition(wristDrop);
-                            sleep(1000);
                             resetEncoders();
-                            frontPos(0.5, 265);
-                            sleep(1500);
+                            strRightPos(0.3, 100);
+                            sleep(300);
+                            runSinEncoders();    ///de aqui
+                            front(0.3);
+                            while(!Rtoch.isPressed()){
+                                idle();
+                            }
+                            robotStop();    /// a aquí se modificó
+                            sleep(1000);
                             graber.setPosition(graberOpen);
-                            sleep(500);
+                            sleep(1500);
                             resetEncoders();
                             backPos(0.5, 200);
-                            sleep(1500);
+                            sleep(1000);
                             wrist.setPosition(wristGrab);
-                            //sleep(1000);
                             resetEncoders();
                             strLeftPos(0.7, 1200);
                             sleep(1000);
@@ -300,13 +322,13 @@ public class Blue_Left_V2 extends LinearOpMode {
                             telemetry.update();
                             resetEncoders();
                             frontPos(.5, 1250);
-                            sleep(2000);
+                            sleep(1800);
                             resetEncoders();
                             //le baje 10 al turn right
-                            turnRightPos(0.4,1050);
-                            sleep(2000);
+                            turnRightPos(0.5,1050);
+                            sleep(1500);
                             resetEncoders();
-                            frontPos(0.5,590);
+                            frontPos(0.5,480);
                             sleep(1000);
                             resetEncoders();
                             /** mover el servo del pixel **/
@@ -316,25 +338,30 @@ public class Blue_Left_V2 extends LinearOpMode {
                             sleep(1000);
                             fin = 1;
                             resetEncoders();
-                            backPos(-0.5, 1590);
-                            sleep(3000);
+                            backPos(-0.5, 1500);
+                            wrist.setPosition(wristDrop);
+                            sleep(800);
+                            sleep(2500);
                             resetEncoders();
                             turnLeftPos(0.5,2250);
-                            sleep(2500);
+                            sleep(2000);
                             resetEncoders();
                             strRightPos(0.5,200);
                             sleep(800);
-                            wrist.setPosition(wristDrop);
-                            sleep(1000);
-                            resetEncoders();
-                            frontPos(0.5, 360);
-                            sleep(1500);
-                            graber.setPosition(graberOpen);
+                            runSinEncoders();
+                            front(0.3);
+                            while(!Rtoch.isPressed() && !Ltoch.isPressed()){
+                                idle();
+                            }
+                            robotStop();
                             sleep(500);
-                            resetEncoders();
-                            wrist.setPosition(wristGrab);
-                            backPos(0.5, 200);
+                            graber.setPosition(graberOpen);
                             sleep(1000);
+                            runWEncoders();
+                            resetEncoders();
+                            backPos(0.5, 300);
+                            wrist.setPosition(wristGrab);
+                            sleep(800);
                             resetEncoders();
                             strLeftPos(0.7, 1550);
                             sleep(2000);
@@ -429,8 +456,8 @@ public class Blue_Left_V2 extends LinearOpMode {
             telemetry.addData("# Objects Detected", currentRecognitions.size());
 
             if (currentRecognitions.size() == 0 && mov == false) {
-                strLeftPos(0.3, 540);
-                sleep(1200);
+                strLeftPos(0.5, 540);
+                sleep(1000);
                 resetEncoders();
                 telemetry.update();
                 mov = true;
@@ -652,6 +679,13 @@ public class Blue_Left_V2 extends LinearOpMode {
             leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
+    public void runSinEncoders()
+    {
+        leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
 
         public void gotoPosition()
         {
