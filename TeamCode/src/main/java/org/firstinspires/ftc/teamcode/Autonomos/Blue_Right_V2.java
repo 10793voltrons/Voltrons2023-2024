@@ -241,7 +241,7 @@ public class Blue_Right_V2 extends LinearOpMode {
                         turnRightPos(0.4,1050);
                         sleep(1500);
                         resetEncoders();
-                        backPos(0.8, 5000);
+                        backPos(0.8, 6000);
                         sleep(5500);
                         resetEncoders();
                         strRightPos(0.5, 300);

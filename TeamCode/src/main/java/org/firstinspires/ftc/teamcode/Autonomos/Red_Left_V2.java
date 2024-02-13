@@ -222,7 +222,7 @@ public class Red_Left_V2 extends LinearOpMode {
                         sleep(1000);
                         fin = 1;
                         resetEncoders();
-                        backPos(0.3, 300);
+                        backPos(0.3, 1100);
                         sleep(1000);
                         resetEncoders();
                         break;

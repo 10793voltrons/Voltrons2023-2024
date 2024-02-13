@@ -282,7 +282,7 @@ public class TeleOpCenterstageV2 extends LinearOpMode {
             }
             else if(gamepad2.left_trigger>0 /*&& DLeft.milliseconds()>100*/ )
             {
-                arm.setPower(linearSlidePowerMultiplier);
+                arm.setPower(linearSlidePowerMultiplier*0.75);
             }
             else{
                 arm.setPower(0);

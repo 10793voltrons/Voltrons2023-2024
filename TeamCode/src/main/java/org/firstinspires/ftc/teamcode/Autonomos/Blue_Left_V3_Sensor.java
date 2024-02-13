@@ -343,10 +343,10 @@ public class Blue_Left_V3_Sensor extends LinearOpMode {
                             sleep(800);
                             sleep(2500);
                             resetEncoders();
-                            turnLeftPos(0.5,2250);
+                            turnLeftPos(0.5,2450);
                             sleep(2000);
                             resetEncoders();
-                            strRightPos(0.5,200);
+                            strRightPos(0.5,70);
                             sleep(800);
                             runSinEncoders();
                             front(0.3);
