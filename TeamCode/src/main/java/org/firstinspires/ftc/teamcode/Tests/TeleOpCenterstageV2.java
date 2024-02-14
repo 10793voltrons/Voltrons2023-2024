@@ -36,7 +36,7 @@ public class TeleOpCenterstageV2 extends LinearOpMode {
     Servo wrist;
     Servo lanzador;
 
-    //TouchSensor toch;
+    TouchSensor Rtoch, Ltoch;
 
     private PIDController controller;
 
@@ -96,7 +96,8 @@ public class TeleOpCenterstageV2 extends LinearOpMode {
         controller = new PIDController(p,i,d);
        // telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
-        //toch = hardwareMap.get(TouchSensor.class, "toch2");
+        Ltoch = hardwareMap.get(TouchSensor.class, "toch");
+        Rtoch = hardwareMap.get(TouchSensor.class, "toch2");
 
         arm = hardwareMap.get(DcMotorEx.class, "arm");
         arm.setDirection(DcMotorEx.Direction.REVERSE);
@@ -311,6 +312,10 @@ public class TeleOpCenterstageV2 extends LinearOpMode {
 
             }
 
+/*            if (Rtoch.isPressed() || Ltoch.isPressed()){
+                avion.setPower(0.5);
+            }*/
+
 
             telemetry.addData("Invert", invert);
             telemetry.addData("Grabber", graber.getPosition());
@@ -318,6 +323,7 @@ public class TeleOpCenterstageV2 extends LinearOpMode {
             telemetry.addData("target", target);
             telemetry.addData("Slow Mode", adjust == 4);
             telemetry.addData("Wrist position:", wrist.getPosition());
+
             telemetry.update();
 
         }

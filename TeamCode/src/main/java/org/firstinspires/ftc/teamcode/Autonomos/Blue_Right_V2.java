@@ -212,9 +212,11 @@ public class Blue_Right_V2 extends LinearOpMode {
                         sleep(1000);
                         fin = 1;
                         resetEncoders();
-                        backPos(0.5, 200);
+                        backPos(0.5, 500);
                         sleep(1000);
                         resetEncoders();
+                        strLeftPos(0.5, 950);
+                        sleep(1000);
                         break;
                     }
                     if (pos == 2)  //Center marker
@@ -241,10 +243,10 @@ public class Blue_Right_V2 extends LinearOpMode {
                         turnRightPos(0.4,1050);
                         sleep(1500);
                         resetEncoders();
-                        backPos(0.8, 6000);
-                        sleep(5500);
+                        backPos(0.8, 4500);
+                        sleep(4800);
                         resetEncoders();
-                        strRightPos(0.5, 300);
+                        strRightPos(0.5, 500);
                         sleep(1000);
 
                         break;
@@ -260,7 +262,9 @@ public class Blue_Right_V2 extends LinearOpMode {
                         resetEncoders();
                         ss.setPosition(ssArriba);
                         sleep(1000);
-                        fin = 1;
+                        resetEncoders();
+                        backPos(0.5, 950);
+                        sleep(1000);
                         break;
                     }
                 }else{

@@ -157,7 +157,9 @@ public class Blue_Left_V3_Sensor extends LinearOpMode {
                     telemetry.addData("posición: %i", pos);
                     telemetry.addData("move = %b", mov);
                     telemetry.addData("target = %i", target);
-                    telemetry.addData("termina = %i", termina);
+                    telemetry.addData("Left touch :", Ltoch.isPressed());
+                    telemetry.addData("Right touch :", Rtoch.isPressed());
+
                     telemetry.update();
 
                 /*controller.setPID(p,i,d);
@@ -198,7 +200,7 @@ public class Blue_Left_V3_Sensor extends LinearOpMode {
                             sleep(200);
                             runSinEncoders();
                             front(0.3);
-                            while(!Rtoch.isPressed()){
+                            while(!Rtoch.isPressed() && !Ltoch.isPressed()){
                                 idle();
                             }
                             robotStop();    /// a aquí se modificó
@@ -252,7 +254,7 @@ public class Blue_Left_V3_Sensor extends LinearOpMode {
                             sleep(300);
                             runSinEncoders();    ///de aqui
                             front(0.3);
-                            while(!Rtoch.isPressed()){
+                            while(!Rtoch.isPressed() && !Ltoch.isPressed()){
                                 idle();
                             }
                             robotStop();    /// a aquí se modificó
@@ -350,7 +352,7 @@ public class Blue_Left_V3_Sensor extends LinearOpMode {
                             sleep(800);
                             runSinEncoders();
                             front(0.3);
-                            while(!Rtoch.isPressed() && !Ltoch.isPressed()){
+                            while(!Ltoch.isPressed() && !Rtoch.isPressed()){
                                 idle();
                             }
                             robotStop();
