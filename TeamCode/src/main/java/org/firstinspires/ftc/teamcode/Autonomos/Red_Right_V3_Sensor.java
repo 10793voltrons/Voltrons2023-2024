@@ -208,7 +208,7 @@ public class Red_Right_V3_Sensor extends LinearOpMode {
                         frontPos(0.4, 1050);
                         sleep(3500);
                         resetEncoders();
-                        strLeftPos(0.3,50);
+                        strLeftPos(0.3,150);
                         sleep(1000);
                         resetEncoders();
                         /** mover el servo del pixel **/

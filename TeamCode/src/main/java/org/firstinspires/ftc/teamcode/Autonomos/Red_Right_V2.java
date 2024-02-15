@@ -232,7 +232,7 @@ public class Red_Right_V2 extends LinearOpMode {
                         frontPos(-0.5, 850);
                         sleep(2000);
                         resetEncoders();
-                        strLeftPos(0.4,250);
+                        strLeftPos(0.4,330);
                         sleep(1000);
 
                         runSinEncoders();

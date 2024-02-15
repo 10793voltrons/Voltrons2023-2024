@@ -215,7 +215,7 @@ public class Blue_Right_V2 extends LinearOpMode {
                         backPos(0.5, 500);
                         sleep(1000);
                         resetEncoders();
-                        strLeftPos(0.5, 950);
+                        strLeftPos(0.5, 1000);
                         sleep(1000);
                         break;
                     }
@@ -229,7 +229,6 @@ public class Blue_Right_V2 extends LinearOpMode {
                         //wrist.setPosition(wristDrop);
                         ss.setPosition(ssArriba);
                         sleep(1000);
-                        fin = 1;
                         resetEncoders();
                         backPos(0.3, 300);
                         sleep(1000);
@@ -263,7 +262,7 @@ public class Blue_Right_V2 extends LinearOpMode {
                         ss.setPosition(ssArriba);
                         sleep(1000);
                         resetEncoders();
-                        backPos(0.5, 950);
+                        backPos(0.5, 850);
                         sleep(1000);
                         break;
                     }

@@ -211,7 +211,7 @@ public class Blue_Left_V3_Sensor extends LinearOpMode {
                             sleep(1000);
                             wrist.setPosition(wristGrab);
                             resetEncoders();
-                            strLeftPos(0.6, 870);
+                            strLeftPos(0.6, 800);
                             sleep(800);
                             /**frontPos(0.5, 235);
                             sleep(1500);

@@ -191,11 +191,11 @@ public class Red_Left_V2 extends LinearOpMode {
 
                 if (pos != 0)
                 {
-                    if (pos == 1){ //Left marker
+                    if (pos == 1) { //Left marker
                         telemetry.update();
                         resetEncoders();
-                        frontPos(.5, 1200);
-                        sleep(2000);
+                        frontPos(.5, 1000);
+                        sleep(1500);
                         resetEncoders();
                         //le baje 10 al turn right
                         /** mover el servo del pixel **/
@@ -204,9 +204,23 @@ public class Red_Left_V2 extends LinearOpMode {
                         sleep(1000);
                         fin = 1;
                         resetEncoders();
-                        backPos(0.5, 200);
+                        backPos(0.5, 300);
                         sleep(1000);
                         resetEncoders();
+                        strRightPos(0.5, 410);
+                        sleep(1000);
+                        resetEncoders();
+                        frontPos(.5, 2000);
+                        sleep(2300);
+                        resetEncoders();
+                        turnLeftPos(.5, 1100);
+                        sleep(1200);
+                        resetEncoders();
+                        backPos(.5, 3850);
+                        sleep(4500);
+                        resetEncoders();
+                        strLeftPos(.4, 400);
+                        sleep(600);
                         break;
                     }
                     if (pos == 2)  //Center marker
@@ -220,11 +234,24 @@ public class Red_Left_V2 extends LinearOpMode {
                         ss.setPosition(ssArriba);
                         graber.setPosition(graberClosed);
                         sleep(1000);
-                        fin = 1;
                         resetEncoders();
-                        backPos(0.3, 1100);
+                        backPos(0.3, 300);
                         sleep(1000);
                         resetEncoders();
+                        strLeftPos(0.5, 800);
+                        sleep(1200);
+                        resetEncoders();
+                        frontPos(0.5, 1500);
+                        sleep(2500);
+                        resetEncoders();
+                        turnLeftPos(0.4,1100);
+                        sleep(1500);
+                        resetEncoders();
+                        backPos(0.8, 4300);
+                        sleep(4800);
+                        resetEncoders();
+                        strLeftPos(0.5, 500);
+                        sleep(1000);
                         break;
                     }
                     if (pos == 3)  //Right Marker
@@ -238,7 +265,7 @@ public class Red_Left_V2 extends LinearOpMode {
                         turnRightPos(0.4,1050);
                         sleep(2000);
                         resetEncoders();
-                        frontPos(0.5,600);
+                        frontPos(0.5,580);
                         sleep(1000);
                         resetEncoders();
                         /** mover el servo del pixel **/
@@ -246,24 +273,22 @@ public class Red_Left_V2 extends LinearOpMode {
                         graber.setPosition(graberClosed);
                         //wrist.setPosition(wristDrop);
                         sleep(1000);
-                        fin = 1;
                         resetEncoders();
-                        backPos(-0.5, 1590);
-                        sleep(3000);
+                        backPos(-0.5, 590);
+                        sleep(1000);
+                        resetEncoders();
+                        strLeftPos(0.5,1100);
+                        sleep(1300);
                         resetEncoders();
                         turnLeftPos(0.5,2200);
                         sleep(2500);
                         resetEncoders();
-                        strRightPos(0.5,200);
-                        sleep(800);
-                        wrist.setPosition(wristDrop);
+                        backPos(0.5, 4300);
+                        sleep(4800);
+                        //graber.setPosition(graberOpen);
+                        resetEncoders();
+                        strLeftPos(0.5, 500);
                         sleep(1000);
-                        resetEncoders();
-                        frontPos(0.5, 360);
-                        sleep(1500);
-                        graber.setPosition(graberOpen);
-                        sleep(500);
-                        resetEncoders();
                         break;
                     }
                 }else{
@@ -373,8 +398,8 @@ public class Red_Left_V2 extends LinearOpMode {
         telemetry.addData("# Objects Detected", currentRecognitions.size());
 
         if (currentRecognitions.size() == 0 && mov == false) {
-            strLeftPos(0.3, 500);
-            sleep(1050);
+            strLeftPos(0.3, 860);
+            sleep(1000);
             resetEncoders();
             telemetry.update();
             mov = true;
